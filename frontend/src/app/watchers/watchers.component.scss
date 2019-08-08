@@ -1,0 +1,130 @@
+@import "../../styles.scss";
+
+:host {
+  display: flex;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+.watcher-group {
+  // position: absolute;
+  // top: 0;
+  // width: 100vw;
+  // height: 100vh;
+  // padding: 1rem;
+  // padding-top: 78px;
+  // overflow-x: auto;
+  // display: grid;
+  // grid-template-columns: repeat(99, 320px);
+  // grid-template-rows: repeat(1, 2fr);
+  // grid-auto-flow: column;
+  // grid-gap: 1rem;
+  padding: 1rem;
+  background: rgba(140, 140, 140, 0.35);
+  margin: 1rem;
+  border-radius: 0.5rem;
+  flex: 1 0 20rem;
+  display: flex;
+  flex-direction: column;
+  backdrop-filter: blur(1rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+
+  h2 {
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.watcher {
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  transition: 0.2s;
+  display: flex;
+  overflow: hidden;
+  color: inherit;
+  flex: 0 0 3rem;
+  margin-bottom: 0.5rem;
+
+  &:hover {
+    transform: scale(1.05);
+    color: inherit;
+  }
+
+  &.status-init {
+    .watcher-icon {
+      background: $gray
+    }
+  }
+
+  &.status-healthy {
+    .watcher-icon {
+      background: $success
+    }
+  }
+
+  &.status-down {
+    .watcher-icon {
+      background: $danger
+    }
+  }
+}
+
+.watcher-icon {
+  flex: 0 0 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.watcher-content {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
+
+  h3 {
+    font-weight: bold;
+  }
+}
+
+.add-watcher {
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  opacity: 0.5;
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.modal-background {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(0.25rem);
+  opacity: 1;
+}
+
+.modal-card {
+  background: hsla(0, 0, 30%, 0.5);
+  backdrop-filter: blur(1rem);
+  border-radius: 1rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
+  border: 1px solid hsla(0, 0%, 100%, 0.2);
+
+  .modal-card-head, .modal-card-body, .modal-card-foot {
+    background: none;
+    border: 0;
+  }
+
+  .modal-card-title {
+    color: inherit;
+  }
+
+  pre {
+    background: rgba(255, 255, 255, 0.1);
+    color: inherit;
+    border-radius: 0.5rem;
+  }
+
+}

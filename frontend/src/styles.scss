@@ -1,0 +1,39 @@
+$family-primary: "Open Sans", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+$family-secondary: $family-primary;
+
+$black-hue: 225;
+$body-color: hsla(0, 0%, 100%, 0.85);
+$body-background-color: hsla($black-hue, 15%, 15%, 1);
+$body-size: 16px;
+$title-color: hsla(0, 0%, 100%, 1);
+$subtitle-color: hsla(0, 0%, 100%, 0.5);
+$subtitle-strong-color: hsla(0, 0%, 100%, 0.5);
+$dark: hsla($black-hue, 15%, 25%, 1);
+$primary: hsl(178, 85%, 48%);
+$success: hsla(133, 49%, 55%, 1);
+$gray: hsla(133, 0%, 50%, 1);
+
+$link: $primary;
+$link-hover: hsl(178, 85%, 40%);
+
+$button-color: $body-color;
+$button-background-color: hsla($black-hue, 15%, 25%, 1);
+$button-border-color: hsla(0, 0%, 100%, 0.5);
+$button-hover-color: $body-color;
+$button-focus-color: $body-color;
+$button-active-color: $body-color;
+
+$radius-small: 1px;
+$radius: 2px;
+$radius-large: 4px;
+
+@import "~bulma/bulma.sass";
+
+html, body {
+  height: 100%;
+  overflow: auto;
+}
+
+body {
+  background: image("https://img.wallpapersafari.com/desktop/1920/1080/18/63/3etGrw.jpg");
+}

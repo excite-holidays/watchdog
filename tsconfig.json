@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "outDir": "build"
+  },
+  "include": [
+    "server/**/*"
+  ]
+}

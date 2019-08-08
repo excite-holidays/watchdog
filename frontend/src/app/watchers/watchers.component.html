@@ -1,0 +1,51 @@
+<ng-container *ngIf="app$ | async as app">
+  <div class="watcher-group" *ngFor="let watcherGroup of app.watcherGroups">
+    <h2>{{watcherGroup.name}}</h2>
+    <a class="watcher" *ngFor="let watcher of watcherGroup.watchers"
+      [class.status-init]="watcher.status === 'init'"
+      [class.status-healthy]="watcher.status === 'healthy'"
+      [class.status-down]="watcher.status === 'down'"
+      (click)="onOpen(watcher)"
+    >
+      <div class="watcher-icon">
+        <i class="far fa-check-circle"
+          [class.fa-question-circle]="watcher.status === 'init'"
+          [class.fa-check-circle]="watcher.status === 'healthy'"
+          [class.fa-times-circle]="watcher.status === 'down'"
+        ></i>
+      </div>
+      <div class="watcher-content">
+        <h3>{{watcher.name}}</h3>
+        <small>{{watcher.version}}</small>
+      </div>
+    </a>
+
+    <!-- <a class="watcher add-watcher">
+      <i class="fas fa-plus-circle"></i>
+    </a> -->
+  </div>
+</ng-container>
+
+<div class="modal" [class.is-active]="modalActive">
+  <div class="modal-background" (click)="onClose()" @modalBackgroundIn *ngIf="currentWatcher"></div>
+  <div class="modal-card" @modalCardIn *ngIf="currentWatcher"
+    (@modalCardIn.start)="onAnimationEvent($event)"
+    (@modalCardIn.done)="onAnimationEvent($event)"
+  >
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{currentWatcher.name}} - {{currentWatcher.groupName}}</p>
+      <button class="delete" (click)="onClose()"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="content">
+        <label>URL</label>
+        <pre>{{currentWatcher.url}}</pre>
+        <label>Body</label>
+        <pre>{{currentWatcher.body | json}}</pre>
+
+      </div>
+
+    </section>
+  </div>
+  <!-- <button class="modal-close is-large" aria-label="close" (click)="onClose()"></button> -->
+</div>

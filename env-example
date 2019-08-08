@@ -1,0 +1,3 @@
+PORT=3000
+DATABASE=data.json
+SLACK_API=https://hooks.slack.com/services/xxxxxx
