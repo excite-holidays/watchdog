@@ -46,7 +46,7 @@ export class Worker {
         tap(resp => this.processResponse(resp)),
         catchError(e => {
           if (this.status === 'healthy') {
-            slackNotify(`${this.watcher.name} - ${this.watcher.groupName} is down!`)
+            this.sentDownMessage()
           }
           this.status = 'down'
           this.body = e.body || e.message
@@ -61,19 +61,37 @@ export class Worker {
   private processResponse(resp: Response<string>) {
     const wasDown = this.status === 'down'
     try {
-      const body = JSON.parse(resp.body)
-      this.body = body
-      const healthValue = get(body, this.watcher.healthKey)
-      const versionValue = get(body, this.watcher.versionKey)
-      this.status = String(healthValue) === this.watcher.healthValue ? 'healthy' : 'down'
-      this.version = versionValue
+      if (this.watcher.healthKey) {
+        const body = JSON.parse(resp.body)
+        this.body = body
+        const healthValue = get(body, this.watcher.healthKey)
+        this.status = String(healthValue) === this.watcher.healthValue ? 'healthy' : 'down'
+      } else {
+        this.status = 'healthy'
+      }
+      if (this.watcher.versionKey) {
+        const body = JSON.parse(resp.body)
+        const versionValue = get(body, this.watcher.versionKey)
+        this.version = versionValue
+      }
     } catch(e) {
       this.body = resp.body
     }
 
     this.eventEmitter$.next()
     if (wasDown && this.status === 'healthy') {
-      slackNotify(`${this.watcher.name} - ${this.watcher.groupName} is up!`)
+      this.sentUpMessage()
     }
+    if (!wasDown && this.status === 'down') {
+      this.sentDownMessage()
+    }
+  }
+
+  private sentDownMessage() {
+    slackNotify(`:x: ${this.watcher.name} - ${this.watcher.groupName} is down!`)
+  }
+
+  private sentUpMessage() {
+    slackNotify(`:white_check_mark: ${this.watcher.name} - ${this.watcher.groupName} is up!`)
   }
 }

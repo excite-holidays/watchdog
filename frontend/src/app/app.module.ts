@@ -12,10 +12,12 @@ import { AppState } from './app.state';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { environment } from 'src/environments/environment';
+import { BackgroundSelectorComponent } from './background-selector/background-selector.component';
 
 const components = [
   WatchersComponent,
   BackgroundImageComponent,
+  BackgroundSelectorComponent,
 ];
 
 @NgModule({

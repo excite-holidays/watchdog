@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit, HostBinding } from '@angular/core';
 import io from 'socket.io-client';
 import { Store } from '@ngxs/store';
 import { SetWatcherGroups, ChangeBackgroundImage } from './app.state';
 import { HttpClient } from '@angular/common/http'
 import { interval } from 'rxjs';
+import { BackgroundType } from './background-selector/background-selector.component';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,8 @@ import { interval } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
+  currentBackgroundType = BackgroundType.Dark
+  BackgroundType = BackgroundType
   constructor(private store: Store, private http: HttpClient) {}
 
   ngOnInit() {
@@ -27,6 +30,13 @@ export class AppComponent implements OnInit {
     interval(60 * 1000).subscribe(() => {
       this.store.dispatch(new ChangeBackgroundImage())
     })
+
+    const savedbackgroundType = localStorage.getItem('backgroundType') as BackgroundType
+    if (savedbackgroundType) {
+      this.onSelectBackgroundType(savedbackgroundType)
+    } else {
+      localStorage.setItem('backgroundType', this.currentBackgroundType)
+    }
   }
 
   onStartAll() {
@@ -39,5 +49,15 @@ export class AppComponent implements OnInit {
 
   onChangeBackground() {
     this.store.dispatch(new ChangeBackgroundImage())
+  }
+
+  onSelectBackgroundType(backgroundType: BackgroundType) {
+    this.currentBackgroundType = backgroundType
+    localStorage.setItem('backgroundType', this.currentBackgroundType)
+  }
+
+  @HostBinding('class.light-theme')
+  get isLightTheme() {
+    return this.currentBackgroundType === BackgroundType.Light
   }
 }

@@ -17,12 +17,15 @@
 
 .watcher-group {
   padding: 0.75rem;
-  background: rgba(140, 140, 140, 0.35);
+  background: hsla(229, 8%, 40%, 0.8);
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
-  backdrop-filter: blur(1rem);
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.2);
+  // background: rgba(140, 140, 140, 0.35);
+  // backdrop-filter: blur(1rem);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.11);
+  position: relative;
+  z-index: 1;
 
   h2 {
     font-weight: bold;
@@ -60,7 +63,8 @@
 
   &.status-down {
     .watcher-icon {
-      background: $danger
+      background: $danger;
+      animation: flash 1s infinite;
     }
   }
 }
@@ -71,6 +75,7 @@
   align-items: center;
   justify-content: center;
   font-size: 2rem;
+  color: #fff;
 }
 
 .watcher-content {
@@ -96,13 +101,14 @@
 
 .modal-background {
   background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(0.25rem);
+  // backdrop-filter: blur(0.25rem);
   opacity: 1;
 }
 
 .modal-card {
-  background: hsla(0, 0, 30%, 0.5);
-  backdrop-filter: blur(1rem);
+  background: hsla(229, 8%, 30%, 1);
+  // background: hsla(0, 0, 30%, 0.5);
+  // backdrop-filter: blur(1rem);
   border-radius: 1rem;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
   border: 1px solid hsla(0, 0%, 100%, 0.2);
@@ -122,4 +128,55 @@
     border-radius: 0.5rem;
   }
 
+}
+
+@keyframes flash {
+  0% {
+    background: change-color($danger, $alpha: 0.5);
+  }
+  10% {
+    background: change-color($danger, $alpha: 1);
+  }
+  100% {
+    background: change-color($danger, $alpha: 0.5);
+  }
+}
+
+:host-context(.light-theme) {
+  .watcher-group {
+    background: hsla(229, 8%, 95%, 1);
+  }
+
+  .watcher {
+    background: hsla(229, 8%, 90%, 1);
+  }
+
+  .modal-card {
+    background: hsla(228, 8%, 95%, 1);
+    pre {
+      background: hsla(228, 8%, 90%, 1);
+    }
+  }
+}
+
+:host-context(.backdropfilter) {
+  .watcher-group {
+    background: hsla(229, 8%, 40%, 0.5);
+    backdrop-filter: blur(1rem);
+  }
+  .modal-card {
+    background: hsla(229, 8%, 30%, 0.5);
+    backdrop-filter: blur(1rem);
+  }
+}
+
+:host-context(.backdropfilter .light-theme) {
+  .watcher-group {
+    background: hsla(229, 8%, 95%, 1);
+    backdrop-filter: blur(1rem);
+  }
+  .modal-card {
+    background: hsla(228, 8%, 95%, 0.5);
+    backdrop-filter: blur(1rem);
+  }
 }

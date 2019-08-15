@@ -1,6 +1,6 @@
 import { Watcher } from './../models/watcher';
 import { AppState } from './../app.state';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, HostListener } from '@angular/core';
 import { Select } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AppStateModel } from '../models/app-state.model';
@@ -39,6 +39,7 @@ export class WatchersComponent implements OnInit {
     this.currentWatcher = watcher
   }
 
+  @HostListener('document:keydown.escape')
   onClose() {
     this.currentWatcher = null
   }
