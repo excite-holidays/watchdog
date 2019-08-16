@@ -6,6 +6,8 @@
   "main";
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
+  background: hsla(229, 8%, 80%, 0);
+  transition: background 1s, color 1s;
 }
 
 // nav {

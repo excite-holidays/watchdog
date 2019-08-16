@@ -43,7 +43,7 @@
     <section class="modal-card-body">
       <div class="content">
         <label>URL</label>
-        <pre>{{currentWatcher.url}}</pre>
+        <pre><a [href]="currentWatcher.url" target="_blank">{{currentWatcher.url}}</a></pre>
         <label>Body</label>
         <pre>{{currentWatcher.body | json}}</pre>
 

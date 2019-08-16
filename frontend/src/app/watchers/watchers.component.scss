@@ -26,6 +26,7 @@
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.11);
   position: relative;
   z-index: 1;
+  transition: background 1s;
 
   h2 {
     font-weight: bold;
@@ -37,12 +38,12 @@
 .watcher {
   border-radius: 0.5rem;
   background: rgba(255, 255, 255, 0.1);
-  transition: 0.2s;
   display: flex;
   overflow: hidden;
   color: inherit;
   flex: 0 0 3rem;
   margin-bottom: 0.5rem;
+  transition: background 1s, transform 0.2s;
 
   &:hover {
     transform: scale(1.05);

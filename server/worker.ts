@@ -60,22 +60,25 @@ export class Worker {
 
   private processResponse(resp: Response<string>) {
     const wasDown = this.status === 'down'
+    const isJson = false
+    try {
+      const body = JSON.parse(resp.body)
+      this.body = body
+    } catch {
+      this.body = resp.body
+    }
     try {
       if (this.watcher.healthKey) {
-        const body = JSON.parse(resp.body)
-        this.body = body
-        const healthValue = get(body, this.watcher.healthKey)
+        const healthValue = get(this.body, this.watcher.healthKey)
         this.status = String(healthValue) === this.watcher.healthValue ? 'healthy' : 'down'
       } else {
         this.status = 'healthy'
       }
       if (this.watcher.versionKey) {
-        const body = JSON.parse(resp.body)
-        const versionValue = get(body, this.watcher.versionKey)
+        const versionValue = get(this.body, this.watcher.versionKey)
         this.version = versionValue
       }
     } catch(e) {
-      this.body = resp.body
     }
 
     this.eventEmitter$.next()

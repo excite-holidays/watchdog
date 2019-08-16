@@ -15,6 +15,7 @@ import { BackgroundType } from './background-selector/background-selector.compon
 export class AppComponent implements OnInit {
   currentBackgroundType = BackgroundType.Dark
   BackgroundType = BackgroundType
+  currentVersion: string
   constructor(private store: Store, private http: HttpClient) {}
 
   ngOnInit() {
@@ -25,6 +26,17 @@ export class AppComponent implements OnInit {
 
     socket.on('watchers', data => {
       this.store.dispatch(new SetWatcherGroups(data))
+    })
+
+    socket.on('version', data => {
+      console.log({version: data})
+      if (!this.currentVersion) {
+        this.currentVersion = data
+      }
+
+      if (this.currentVersion !== data) {
+        window.location.reload()
+      }
     })
 
     interval(60 * 1000).subscribe(() => {
