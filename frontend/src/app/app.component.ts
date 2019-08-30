@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
       this.store.dispatch(new SetWatcherGroups(data))
     })
 
-    socket.on('version', data => {
+    socket.on('uiVersion', data => {
       console.log({version: data})
       if (!this.currentVersion) {
         this.currentVersion = data

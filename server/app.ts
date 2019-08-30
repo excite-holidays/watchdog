@@ -13,7 +13,7 @@ import { isEqual } from 'lodash'
 
 const eventEmitter$ = new Subject()
 const groups = db.get('groups').value() as Group[]
-const version = db.get('version').value() as string
+const uiVersion = db.get('uiVersion').value() as string
 
 groups.forEach((group) => {
   group.watchers.forEach((watcher) => {
@@ -59,7 +59,7 @@ const server = app.listen(process.env.PORT, () =>
 const io = socketIo(server)
 io.on('connect', socket => {
   console.log('Connected', socket.id)
-  socket.emit('version', version)
+  socket.emit('uiVersion', uiVersion)
 
   const disconnect$ = new Subject()
   watchers$.pipe(takeUntil(disconnect$)).subscribe((watchers) => {

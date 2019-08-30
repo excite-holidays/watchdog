@@ -34,14 +34,15 @@ export class Worker {
       .pipe(
         take(1),
         delay(2000),
-        switchMap(() =>
-          from(
-            got(this.watcher.url, {
-              headers: {
-                Authorization: `Basic ${this.watcher.basicAuth}`
-              },
-            })
+        switchMap(() => {
+          const headers = {}
+          if (this.watcher.basicAuth) {
+            headers['Authorization'] = `Basic ${this.watcher.basicAuth}`
+          }
+          return from(
+            got(this.watcher.url, { headers })
           )
+        }
         ),
         tap(resp => this.processResponse(resp)),
         catchError(e => {
