@@ -1,5 +1,5 @@
 <!-- <img class="background-img" src="https://source.unsplash.com/2560x1440/?nature"/> -->
-<app-background-image *ngIf="currentBackgroundType === BackgroundType.Picture"></app-background-image>
+<app-background-image *ngIf="(currentBackgroundType | async) === BackgroundType.Picture"></app-background-image>
 <!-- <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <div class="navbar-item">
@@ -19,9 +19,8 @@
 
 <app-watchers></app-watchers>
 
-<img class="eh-logo" src="/assets/EH_logo-01.svg" />
+<!-- <img class="eh-logo" src="/assets/EH_logo-01.svg" /> -->
 <app-background-selector
-  [active]="currentBackgroundType"
+  [active]="currentBackgroundType | async"
   (selectBackgroundType)="onSelectBackgroundType($event)"
 ></app-background-selector>
-<!-- <a title="Change background image" class="button is-rounded change-background-button" href="javascript:void(0)" (click)="onChangeBackground()"><i class="far fa-image"></i></a> -->

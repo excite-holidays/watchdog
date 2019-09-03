@@ -1,0 +1,23 @@
+<a
+  *ngIf="watcher"
+  class="watcher"
+  [class.status-init]="watcher.status === 'init'"
+  [class.status-healthy]="watcher.status === 'healthy'"
+  [class.status-down]="watcher.status === 'down'"
+  [class.status-init]="!watcher.enable"
+  (click)="onOpen()"
+>
+  <div class="watcher-icon">
+    <i class="far"
+      [class.fa-question-circle]="watcher.status === 'init'"
+      [class.fa-check-circle]="watcher.status === 'healthy'"
+      [class.fa-times-circle]="watcher.status === 'down'"
+      [class.fa-eye-slash]="!watcher.enable"
+    ></i>
+    <!-- <span class="icon"></span> -->
+  </div>
+  <div class="watcher-content">
+    <h3>{{watcher.name}}</h3>
+    <small>{{watcher.version || '-'}}</small>
+  </div>
+</a>

@@ -60,9 +60,3 @@ app-background-selector,
     opacity: 0;
   }
 }
-
-
-:host-context(.light-theme) {
-  color: hsla(229, 30%, 15%, 0.8);
-  background: hsla(229, 8%, 80%, 1);
-}

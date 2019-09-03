@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import { Store } from '@ngxs/store';
 import { SetWatcherGroups, ChangeBackgroundImage } from './app.state';
 import { HttpClient } from '@angular/common/http'
-import { interval } from 'rxjs';
+import { interval, BehaviorSubject } from 'rxjs';
 import { BackgroundType } from './background-selector/background-selector.component';
 
 @Component({
@@ -13,7 +13,7 @@ import { BackgroundType } from './background-selector/background-selector.compon
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
-  currentBackgroundType = BackgroundType.Dark
+  currentBackgroundType = new BehaviorSubject(BackgroundType.Dark)
   BackgroundType = BackgroundType
   currentVersion: string
   constructor(private store: Store, private http: HttpClient) {}
@@ -47,8 +47,16 @@ export class AppComponent implements OnInit {
     if (savedbackgroundType) {
       this.onSelectBackgroundType(savedbackgroundType)
     } else {
-      localStorage.setItem('backgroundType', this.currentBackgroundType)
+      localStorage.setItem('backgroundType', this.currentBackgroundType.value)
     }
+
+    this.currentBackgroundType.subscribe((type) => {
+      if (type === BackgroundType.Light) {
+        document.body.classList.add('light-theme')
+      } else {
+        document.body.classList.remove('light-theme')
+      }
+    })
   }
 
   onStartAll() {
@@ -64,12 +72,7 @@ export class AppComponent implements OnInit {
   }
 
   onSelectBackgroundType(backgroundType: BackgroundType) {
-    this.currentBackgroundType = backgroundType
-    localStorage.setItem('backgroundType', this.currentBackgroundType)
-  }
-
-  @HostBinding('class.light-theme')
-  get isLightTheme() {
-    return this.currentBackgroundType === BackgroundType.Light
+    this.currentBackgroundType.next(backgroundType)
+    localStorage.setItem('backgroundType', this.currentBackgroundType.value)
   }
 }

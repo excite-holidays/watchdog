@@ -13,9 +13,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { environment } from 'src/environments/environment';
 import { BackgroundSelectorComponent } from './background-selector/background-selector.component';
+import { WatcherComponent } from './watcher/watcher.component';
 
 const components = [
   WatchersComponent,
+  WatcherComponent,
   BackgroundImageComponent,
   BackgroundSelectorComponent,
 ];

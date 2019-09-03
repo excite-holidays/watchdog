@@ -1,33 +1,60 @@
 <div class="watchers" *ngIf="app$ | async as app">
+  <table>
+    <thead>
+      <tr>
+        <!-- <th class="component-name"></th> -->
+        <th class="group-col" *ngFor="let group of app.watcherGroups">{{group.name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let name of app.componentNames; let i = index">
+        <!-- <th class="component-name">{{name}}</th> -->
+        <td *ngFor="let group of app.watcherGroups">
+          <app-watcher
+            [watcher]="group.watchers[i]"
+            (open)="onOpen(group.watchers[i])"
+          ></app-watcher>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- <div class="watcher-group-container">
+      <div class="watcher-group">
+          <h2>&nbsp;</h2>
+          <div class="cell" *ngFor="let name of app.componentNames">
+            <div class="component-name">{{name}}</div>
+          </div>
+      </div>
+  </div>
   <div class="watcher-group-container" *ngFor="let watcherGroup of app.watcherGroups">
     <div class="watcher-group">
       <h2>{{watcherGroup.name}}</h2>
-      <a class="watcher" *ngFor="let watcher of watcherGroup.watchers"
-        [class.status-init]="watcher.status === 'init'"
-        [class.status-healthy]="watcher.status === 'healthy'"
-        [class.status-down]="watcher.status === 'down'"
-        [class.status-init]="!watcher.enable"
-        (click)="onOpen(watcher)"
-      >
-        <div class="watcher-icon">
-          <i class="far"
-            [class.fa-question-circle]="watcher.status === 'init'"
-            [class.fa-check-circle]="watcher.status === 'healthy'"
-            [class.fa-times-circle]="watcher.status === 'down'"
-            [class.fa-eye-slash]="!watcher.enable"
-          ></i>
-        </div>
-        <div class="watcher-content">
-          <h3>{{watcher.name}}</h3>
-          <small>{{watcher.version}}</small>
-        </div>
-      </a>
-  
-      <!-- <a class="watcher add-watcher">
-        <i class="fas fa-plus-circle"></i>
-      </a> -->
+      <div class="cell" *ngFor="let watcher of watcherGroup.watchers">
+        <a
+          *ngIf="watcher"
+          class="watcher"
+          [class.status-init]="watcher.status === 'init'"
+          [class.status-healthy]="watcher.status === 'healthy'"
+          [class.status-down]="watcher.status === 'down'"
+          [class.status-init]="!watcher.enable"
+          (click)="onOpen(watcher)"
+        >
+          <div class="watcher-icon">
+            <i class="far"
+              [class.fa-question-circle]="watcher.status === 'init'"
+              [class.fa-check-circle]="watcher.status === 'healthy'"
+              [class.fa-times-circle]="watcher.status === 'down'"
+              [class.fa-eye-slash]="!watcher.enable"
+            ></i>
+          </div>
+          <div class="watcher-content">
+            <h3>{{watcher.name}}</h3>
+            <small>{{watcher.version}}</small>
+          </div>
+        </a>
+      </div>
     </div>
-  </div>
+  </div> -->
 </div>
 
 <div class="modal" [class.is-active]="modalActive">

@@ -1,4 +1,4 @@
-@import "../../styles.scss";
+@import "../../styles/variables.scss";
 
 .watchers {
   display: flex;
@@ -35,59 +35,10 @@
   }
 }
 
-.watcher {
-  border-radius: 0.5rem;
-  background: rgba(255, 255, 255, 0.1);
+.cell {
   display: flex;
-  overflow: hidden;
-  color: inherit;
   flex: 0 0 3rem;
   margin-bottom: 0.5rem;
-  transition: background 1s, transform 0.2s;
-
-  &:hover {
-    transform: scale(1.05);
-    color: inherit;
-  }
-
-  &.status-init {
-    .watcher-icon {
-      background: $gray
-    }
-  }
-
-  &.status-healthy {
-    .watcher-icon {
-      background: $success
-    }
-  }
-
-  &.status-down {
-    .watcher-icon {
-      background: $danger;
-      animation: flash 1s infinite;
-    }
-  }
-}
-
-.watcher-icon {
-  flex: 0 0 4rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  color: #fff;
-}
-
-.watcher-content {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 0.5rem;
-
-  h3 {
-    font-weight: bold;
-  }
 }
 
 .add-watcher {
@@ -181,3 +132,36 @@
     backdrop-filter: blur(1rem);
   }
 }
+
+table {
+  width: 100%;
+  table-layout: fixed;
+  margin: 0 1rem;
+  // tbody {
+  //   tr:nth-child(even) {
+  //     background: hsla(0, 0%, 50%, 0.1);
+  //   }
+  //   tr:hover {
+  //     background: hsla(0, 0%, 50%, 0.2);
+  //   }
+  // }
+
+  td, th {
+    padding: 1px 1px;
+  }
+  th {
+    vertical-align: middle;
+  }
+
+  .component-name {
+    padding-left: 1rem;
+    width: 14rem;
+  }
+  .group-col {
+    // width: 15%;
+    // text-align: center;
+
+    padding: 0.5rem 3rem;
+  }
+}
+

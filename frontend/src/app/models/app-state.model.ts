@@ -1,5 +1,6 @@
-import { WatcherGroup } from './watcher-group';
+import { WatcherGroup } from './watcher-group'
 
 export interface AppStateModel {
   watcherGroups: WatcherGroup[]
+  componentNames: string[]
 }

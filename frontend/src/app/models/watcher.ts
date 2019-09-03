@@ -7,4 +7,7 @@ export interface Watcher {
   versionKey: string
   groupName: string
   body: string
+  status: string
+  enable: boolean
+  version: string
 }
